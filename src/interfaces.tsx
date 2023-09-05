@@ -23,3 +23,10 @@ export interface CardComponentProps {
   photo: ImageProps;
   page: number;
 }
+
+export interface SingleImageRequest {
+  request:{
+    signal:AbortSignal,
+  },
+  params: Record<string, string>
+}

@@ -2,9 +2,9 @@ import React from "react";
 import {
   Navigate,
   Outlet,
+  RouteObject,
   createBrowserRouter,
   useNavigation,
-  useRouteError,
 } from "react-router-dom";
 import { imagesList } from "./Gallery";
 import Spinner from "./Spinner";
@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
           {
             path: ":id",
             ...singleImage,
-          },
+          } as RouteObject ,
         ],
       },
     ],
@@ -44,8 +44,6 @@ export const router = createBrowserRouter([
 ]);
 
 function NavbarLayout() {
-  const routeError = useRouteError();
-  debugger;
   const { state } = useNavigation();
   const isLoading = state === "loading";
   return (

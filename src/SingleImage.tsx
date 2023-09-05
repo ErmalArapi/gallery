@@ -16,12 +16,14 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import moment from "moment";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useLocation } from "react-router-dom";
+import { ImageProps, SingleImageRequest } from "./interfaces";
+
 
 export const singleImage = {
   element: <SingleImage />,
-  loader: async ({ request: { signal }, params }) => {
+  loader: async ({ request: { signal }, params }: SingleImageRequest) => {
     let { data } = await getImages({ signal });
-    return data?.data.find((item) => item?.id == params.id) || null;
+    return data?.data.find((item:ImageProps) => item?.id == params.id) || null;
   },
 };
 
@@ -40,7 +42,6 @@ export default function SingleImage() {
     navigate(`/images`);
   };
 
-  debugger;
   return (
     <>
       <Grid container>

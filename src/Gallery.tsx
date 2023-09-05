@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import CardComponent from "./CardComponent";
 import { getImages } from "./api/images";
 import {
-  Navigate,
   useLoaderData,
   useLocation,
   useNavigate,
@@ -15,12 +14,13 @@ import { ImageProps, PaginationProps } from "./interfaces";
 
 export const imagesList = {
   element: <Gallery />,
-  loader: async ({ request: { signal } }: any) => {
+  loader: async ({ request: { signal } }: { request: { signal: AbortSignal } }) => {
     try {
       let { data } = await getImages({ signal });
       return data?.data.filter(
         (item: any) => item?.images?.[0]?.link.includes(".jpg")
       );
+      return []
     } catch (e) {
       throw new Error("Error");
     }
@@ -58,7 +58,7 @@ export default function Gallery() {
     }
   }, [location]);
 
-  const order = (e: any) => {
+  const order = (e: React.ChangeEvent<{ value: string }>) => {
     if (e.target.value === "oldest") {
       setPhotos((photo) => [...photo].sort((a, b) => a.datetime - b.datetime));
     }
